@@ -7,6 +7,7 @@ display.setDefault( "background", 145/255, 145/255, 239/255 )
 
 
 
+
 local myText = display.newText( "Order a Pizza", 160, -20, native.systemFont, 20 )
 
 myText:setFillColor( 255/255, 255/255, 255/255 )
@@ -152,6 +153,11 @@ function calculateCosts ()
 
 end
 
+function round( num, numDecimalPlaces )
+	local mult = 10^(numDecimalPlaces or 2)
+	return math.floor(num * mult + 0.5) / mult
+	-- body
+end
         
 
 
