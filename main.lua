@@ -1,3 +1,8 @@
+-- Assignment 3 
+-- Created by : Omar Aly
+-- Date : April 4th 2019
+
+
 display.setDefault( "background", 145/255, 145/255, 239/255 )
 
 
@@ -8,7 +13,6 @@ myText:setFillColor( 255/255, 255/255, 255/255 )
 
 
 
---This is the button where you will place your order
 
 local calculateButton1 = display.newImageRect( "assets/images/order.png", 200, 100 )
 
@@ -20,7 +24,6 @@ calculateButton1.id = "calculate button"
 
 
 
---More cosmetics (picture of pizza0)
 
 local images = display.newImageRect( "assets/images/pizzaclipart.png", 100, 100 )
 
@@ -30,7 +33,6 @@ images.y = 150
 
 
 
---The heading and options regarding the size of the pizza
 
 local myText = display.newText( "Size of Pizza:", 160, 225, native.systemFont, 30 )
 
@@ -58,7 +60,6 @@ calculateButton3.id = "extra large button"
 
 
 
---The heading and options regarding the number of toppings
 
 local myText = display.newText( "Number of Toppings:", 160, 320, native.systemFont, 30 )
 
@@ -106,9 +107,8 @@ calculateButton7.id = "four button"
 
 
 
---The textfield where the cost will be displayed
 
-local costOfPizzaTextField = display.newText( "Total Cost", display.contentCenterX, display.contentCenterY + 265, native.systemFont, 25 )
+local costOfPizzaTextField = display.newText( "Total Cost $ :", display.contentCenterX, display.contentCenterY + 265, native.systemFont, 25 )
 
 costOfPizzaTextField.id = "total cost textField"
 
@@ -116,9 +116,8 @@ costOfPizzaTextField:setFillColor( 1, 1, 1 )
 
 
 
---The place where the subtotal will be displayed
 
-local subtotalOfPizzaTextField = display.newText( "Subtotal", display.contentCenterX, display.contentCenterY + 215, native.systemFont, 25 )
+local subtotalOfPizzaTextField = display.newText( "Subtotal :", display.contentCenterX, display.contentCenterY + 215, native.systemFont, 25 )
 
 subtotalOfPizzaTextField.id = "subtotal textField"
 
@@ -126,9 +125,8 @@ subtotalOfPizzaTextField:setFillColor( 1, 1, 1 )
 
 
 
---The place where the text will be displayed
 
-local taxOfPizzaTextField = display.newText( "Tax", display.contentCenterX, display.contentCenterY + 240, native.systemFont, 25 )
+local taxOfPizzaTextField = display.newText( "Tax :", display.contentCenterX, display.contentCenterY + 240, native.systemFont, 25 )
 
 taxOfPizzaTextField.id = "subtotal textField"
 
@@ -140,21 +138,30 @@ taxOfPizzaTextField:setFillColor( 1, 1, 1 )
 
 sizeOfPizza = 0
 
-costOfPizza = 0
 
 numberOfToppings = 0
 
-subTotal = 0
+function calculateCosts ()
+
+	local subtotal = sizeOfPizza + numberOfToppings
+	local tax = subtotal * 0.13
+	taxOfPizzaTextField.text = tostring("Tax: ".. tax)
+	local total = subtotal + tax
+	subtotalOfPizzaTextField.text = tostring("Subtotal ".. subtotal)
+    costOfPizzaTextField.text = tostring("Total Cost ".. total)
+
+end
 
         
 
---The functions related to how the value of each variable will change when the specific button (option) is chosen         
 
 function calculateButtonTouch2 ( event )
 
 	sizeOfPizza = 6
 
 	print "large pizza will be ready"
+
+	calculateCosts ()
 
 	return true
 
@@ -166,6 +173,8 @@ function calculateButtonTouch3 ( event )
 
 	sizeOfPizza = 10
 
+	calculateCosts ()
+
 	print "extra large pizza will be ready"
 
 end
@@ -175,6 +184,8 @@ end
 function calculateButtonTouch4 ( event )
 
 	numberOfToppings = 1
+
+    calculateCosts ()
 
 	print "1 topping will be ready"
 
@@ -186,6 +197,8 @@ function calculateButtonTouch5 ( event )
 
 	numberOfToppings = 1.75
 
+	calculateCosts ()
+
 	print "2 toppings will be ready"
 
 end
@@ -196,6 +209,8 @@ function calculateButtonTouch6 ( event )
 
 	numberOfToppings = 2.50
 
+	calculateCosts ()
+
 	print "3 toppings requested"
 
 end
@@ -205,6 +220,8 @@ end
 function calculateButtonTouch7 ( event )
 
 	numberOfToppings = 3.35
+
+	calculateCosts ()
 
 	print "4 toppings requested"
 
